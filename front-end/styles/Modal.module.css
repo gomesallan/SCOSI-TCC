@@ -1,0 +1,51 @@
+.overlay{
+    background-color: rgba(0,0,0,.95);
+    position: absolute;
+    width: 150vw;
+    height: 100vh;
+    top:0;
+}
+
+.modal{
+    background-color: #161616;
+    position: absolute;
+    left:36vw;
+    top:30vh;
+    max-width: 400px;
+    min-width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.header{
+    
+    align-items: center;
+}
+
+.title{
+    line-height: 1.15;
+    color:#fff;
+}
+
+.body{
+    color:#fff;
+}
+
+.link{
+    /* margin: 2000px; */
+    margin-top: 20px;
+    float: right;
+    margin-right: 30px;;
+}
+@media (max-width: 600px) {
+    .modal{
+        background-color: #161616;
+        position: absolute;
+        left:3vw;
+        top:30vh;
+        max-width: 400px;
+        min-width: 400px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+}

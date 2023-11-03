@@ -1,0 +1,31 @@
+{
+  "name": "exemplo",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "axios": "^0.26.1",
+    "emotion": "^11.0.0",
+    "next": "^12.0.10",
+    "next-qrcode": "^2.0.0",
+    "nprogress": "^0.2.0",
+    "qrcode-next": "^1.4.5",
+    "rc-progress": "^3.3.2",
+    "react": "17.0.2",
+    "react-barcode": "^1.4.1",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.25.3",
+    "react-spinners": "^0.12.0",
+    "request-ip": "^2.1.3",
+    "styled-components": "^5.3.3"
+  },
+  "devDependencies": {
+    "eslint": "8.7.0",
+    "eslint-config-next": "12.0.8"
+  }
+}
