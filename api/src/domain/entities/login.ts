@@ -19,25 +19,25 @@ export class Login extends Entity<LoginProps> {
 
         const { cod } : LoginProps= req.body;
 
-        if(cod === "@bgraf1298"){
-            const token = jwt.sign({ id: "@bgraf1298"}, authConfig.secret,{});
-            await prisma.token.create({
-                data:{
-                    token: token,
-                    usuario: "BGRAF",
-                    data:new Date()
-                }
-            });
-            res.json({
-                    code:200,
-                    token:token
-                });
-        }else{
-            res.json({
-                code:401,
-                error:"Login e/ou senha incorretos"
-            })
-        }
+        // if(cod === "@bgraf1298"){
+        //     const token = jwt.sign({ id: "@bgraf1298"}, authConfig.secret,{});
+        //     await prisma.token.create({
+        //         data:{
+        //             token: token,
+        //             usuario: "BGRAF",
+        //             data:new Date()
+        //         }
+        //     });
+        //     res.json({
+        //             code:200,
+        //             token:token
+        //         });
+        // }else{
+        //     res.json({
+        //         code:401,
+        //         error:"Login e/ou senha incorretos"
+        //     })
+        // }
 
     }
     

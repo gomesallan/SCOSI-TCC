@@ -1,6 +1,6 @@
 import { Entity } from '../../core/domain/Entity';
 import {Request, Response} from 'express';
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -24,7 +24,7 @@ export class Produto extends Entity<ProdutoProps> {
 
         const { nome,img,cod,comex,etiqueta } : ProdutoProps= req.body;
 
-        await prisma.protudo.create({
+        await prisma.produto.create({
             data:{
                 nome: nome,
                 img: img,
@@ -43,7 +43,7 @@ export class Produto extends Entity<ProdutoProps> {
         var idd:number = +id; 
         const { nome,img,cod } : ProdutoProps= req.body;
         
-        await prisma.protudo.update({
+        await prisma.produto.update({
             where:{
                 id:idd
             },
@@ -62,7 +62,7 @@ export class Produto extends Entity<ProdutoProps> {
         var idd:number = +id; 
         const { ativo } : ProdutoProps= req.body;
         
-        await prisma.protudo.update({
+        await prisma.produto.update({
             where:{
                 id:idd
             },
@@ -78,7 +78,7 @@ export class Produto extends Entity<ProdutoProps> {
 
         const {cod} = req.params;
         try{
-            const allUsers = await prisma.protudo.findFirst({
+            const allUsers = await prisma.produto.findFirst({
                 where:{
                     cod
                 }
@@ -87,9 +87,9 @@ export class Produto extends Entity<ProdutoProps> {
             return res.send(allUsers)
 
         }catch(e){
-            if (e instanceof Prisma.PrismaClientKnownRequestError) {
-                res.status(500).send({errorCode:e.code})
-            }
+            // if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            //     res.status(500).send({errorCode:e.code})
+            // }
 
         }
     }

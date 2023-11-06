@@ -64,9 +64,9 @@ class Produto extends Entity_1.Entity {
             return res.send(allUsers);
         }
         catch (e) {
-            if (e instanceof client_1.Prisma.PrismaClientKnownRequestError) {
-                res.status(500).send({ errorCode: e.code });
-            }
+            // if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            //     res.status(500).send({errorCode:e.code})
+            // }
         }
     }
 }

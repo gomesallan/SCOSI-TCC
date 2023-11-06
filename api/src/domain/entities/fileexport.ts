@@ -17,42 +17,6 @@ export class FileExport extends Entity<FileExportProps> {
     private constructor(props: FileExportProps, id?: string){
         super(props,id);
     }
-
-    static async file(req:Request,res:Response){
-
-        const {cod,lote,etiqueta}:any = req.params;
-
-        console.log(cod,lote)
-
-        const nserie = await prisma.produto_acabado.findMany({
-            where:{
-                cod_produto:+cod,
-                lote:+lote
-            },
-            select: {
-                nserie: true
-            }
-        });
-
-        console.log(nserie);
-        if(!nserie)
-            return res.status(400).send({error:"Produto ou lote inválido."});
-        const file = 'data/'+etiqueta+'-'+cod+'-'+lote+".csv";
-        const ws = fs.createWriteStream(file);
-    
-        await fastcsv
-        .write(nserie, { headers: true })
-        .on("finish", function() {
-            console.log("Write to CSV successfully!");
-            
-        })
-        .pipe(ws);
-        
-        setTimeout(function(){
-            return res.download(file);
-        },5000);
-        
-    }
     
     static async file2(req:Request,res:Response){
 
@@ -64,13 +28,6 @@ export class FileExport extends Entity<FileExportProps> {
             comex:0
         };
         console.log(eanProps)
-
-        // const orndem: any = await prisma.ordens.findFirst({where:{cod_produto:parseInt(eanProps.cod_produto),lote:eanProps.lote}});
-        // if(orndem)
-        //     return res.status(400).send({error:"Lote já cadastrada para este produto!"}); 
-        // const produto: any = await prisma.protudo.findFirst({where:{cod:''+eanProps.cod_produto}});
-        // if(!produto)
-        //     return res.status(400).send({error: "Produto não cadastrado!"});
         
         var nserie = Ean.unifyParams(eanProps);
 

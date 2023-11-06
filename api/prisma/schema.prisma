@@ -7,66 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model produto_acabado {
-  id                               Int           @id @default(autoincrement())
-  data                             DateTime      @db.DateTime(0)
-  nserie                           String        @unique(map: "nserie") @db.VarChar(45)
-  hash                             String        @db.Text
-  protudo                          Int
-  lote                             Int
-  cod_produto                      Int
-  etiqueta                         String        @db.Text
-  qtd                              Int?
-  comex                            Int           @default(0)
-  protudo_produto_acabadoToprotudo protudo       @relation(fields: [protudo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_produto_acabado_protudo1")
-  verificacao                      verificacao[]
-
-  @@index([protudo], map: "fk_produto_acabado_protudo1_idx")
-}
-
-model protudo {
-  id              Int               @id @default(autoincrement())
-  data            DateTime          @db.DateTime(0)
-  nome            String            @db.VarChar(100)
-  img             String            @db.Text
-  cod             String            @db.VarChar(45)
-  ativo           Int               @default(1)
-  etiqueta        String?           @db.VarChar(100)
-  comex           Int               @default(0)
-  produto_acabado produto_acabado[]
-}
-
-model requisicao {
-  id                                  Int         @id @default(autoincrement())
-  data                                DateTime    @db.DateTime(0)
-  ip                                  String      @db.VarChar(45)
-  uf                                  String      @db.VarChar(45)
-  verificacao                         Int
-  verificacao_requisicaoToverificacao verificacao @relation(fields: [verificacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_requisicao_verificacao1")
-
-  @@index([verificacao], map: "fk_requisicao_verificacao1_idx")
-}
-
-model verificacao {
-  id                                           Int             @id @default(autoincrement())
-  data                                         DateTime        @db.DateTime(0)
-  hash                                         String          @db.Text
-  valida                                       Int             @default(0)
-  produto_acabado                              Int
-  produto_acabado_produto_acabadoToverificacao produto_acabado @relation(fields: [produto_acabado], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_verificacao_produto_acabado")
-  requisicao                                   requisicao[]
-
-  @@index([produto_acabado], map: "fk_verificacao_produto_acabado_idx")
-}
-
-model token {
-  id      Int      @id @default(autoincrement())
-  data    DateTime @db.DateTime(0)
-  token   String   @db.Text
-  usuario String   @db.VarChar(100)
-  status  Int      @default(1)
-}
-
 model ordens {
   id            Int      @id @default(autoincrement())
   cod_produto   Int
@@ -77,4 +17,15 @@ model ordens {
   comex         Int
   data_cadastro DateTime @db.DateTime(0)
   comex2        Int
+}
+
+model produto {
+  id       Int      @id @default(autoincrement())
+  data     DateTime @db.DateTime(0)
+  nome     String   @db.VarChar(100)
+  img      String   @db.Text
+  cod      String   @db.VarChar(45)
+  ativo    Int      @default(1)
+  etiqueta String?  @db.VarChar(100)
+  comex    Int      @default(0)
 }
