@@ -8,20 +8,20 @@ var slug = require('slug')
 
 const prisma = new PrismaClient();
 
-type OrdensProps = {
+type OrdemProps = {
     lote:number;
     cod_produto:number;
     data?: Date;    
 };
 
-export class Ordens extends Entity<OrdensProps> {
-    private constructor(props: OrdensProps, id?: string){
+export class ordem extends Entity<OrdemProps> {
+    private constructor(props: OrdemProps, id?: string){
         super(props,id);
     }
     
-    static async listOrdens(req:Request,res:Response){
+    static async listordem(req:Request,res:Response){
 
-        const nserie = await prisma.ordens.findMany({
+        const nserie = await prisma.ordem.findMany({
             take: 30,
             orderBy:{id:'desc' }
         });
@@ -31,7 +31,7 @@ export class Ordens extends Entity<OrdensProps> {
 
     static async delete(req:Request,res:Response){
         try{
-            await prisma.ordens.delete({
+            await prisma.ordem.delete({
                 where:{
                     id:1
                 }

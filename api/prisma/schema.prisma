@@ -7,25 +7,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ordens {
-  id            Int      @id @default(autoincrement())
-  cod_produto   Int
+model ordem {
+  id            Int          @id @default(autoincrement())
+  data_cadastro DateTime     @db.DateTime(0)
   lote          Int
   qtd           Int
-  produto       String   @db.VarChar(200)
-  etiqueta      String   @db.VarChar(200)
-  comex         Int
-  data_cadastro DateTime @db.DateTime(0)
-  comex2        Int
+  status        ordem_status
+  etiqueta      String       @db.VarChar(200)
+  produto_id    Int
+  parceiro_id   Int
+  parceiro      parceiro     @relation(fields: [parceiro_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ordem_parceiro1")
+  produto       produto      @relation(fields: [produto_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ordem_produto1")
+
+  @@index([produto_id], map: "fk_ordem_produto1_idx")
+  @@index([parceiro_id], map: "fk_ordem_parceiro1_idx")
 }
 
 model produto {
-  id       Int      @id @default(autoincrement())
-  data     DateTime @db.DateTime(0)
-  nome     String   @db.VarChar(100)
-  img      String   @db.Text
-  cod      String   @db.VarChar(45)
-  ativo    Int      @default(1)
-  etiqueta String?  @db.VarChar(100)
-  comex    Int      @default(0)
+  id            Int      @id @default(autoincrement())
+  nome          String   @db.VarChar(100)
+  cod           Int      @unique
+  ativo         Int      @default(1)
+  data_cadastro DateTime @db.DateTime(0)
+  etiqueta_id   Int
+  ordem         ordem[]
+  etiqueta      etiqueta @relation(fields: [etiqueta_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_produto_etiqueta1")
+
+  @@index([etiqueta_id], map: "fk_produto_etiqueta1_idx")
+}
+
+model etiqueta {
+  id            Int       @id @default(autoincrement())
+  data_cadastro DateTime  @db.DateTime(0)
+  referencia    String    @db.VarChar(100)
+  url           String    @db.Text
+  ativo         Int       @default(1)
+  produto       produto[]
+}
+
+model administrador {
+  id            Int        @id @default(autoincrement())
+  data_cadastro DateTime   @db.DateTime(0)
+  nome          String     @db.VarChar(100) @unique
+  login         String     @db.VarChar(100)
+  senha         String     @db.Text
+  parceiro      parceiro[]
+}
+
+model parceiro {
+  id               Int           @id @default(autoincrement())
+  data_cadastro    DateTime      @db.DateTime(0)
+  nome             String        @db.VarChar(100)
+  login            String        @db.VarChar(100) @unique
+  senha            String        @db.Text
+  ativo            Int           @default(1)
+  administrador_id Int
+  ordem            ordem[]
+  administrador    administrador @relation(fields: [administrador_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_parceiro_administrador1")
+
+  @@index([administrador_id], map: "fk_parceiro_administrador1_idx")
+}
+
+enum ordem_status {
+  Nova
+  Urgencia
+  Andamento
+  Enviado
+  Concluido
 }
