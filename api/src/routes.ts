@@ -14,6 +14,7 @@ import { Administrador } from './domain/entities/administardor';
 import { Usuario } from './domain/entities/usuario';
 import { authAdministrador } from './middlewares/authAdministrador';
 import { Etiqueta } from './domain/entities/etiqueta';
+import { Parceiro } from './domain/entities/parceiro';
 
 var prefix = '';
 
@@ -35,6 +36,12 @@ routes.post(`${prefix}/cadastrar`,authAdministrador,Etiqueta.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Etiqueta.alterar);
 routes.get(`${prefix}/buscar-por-referencia`,authAdministrador,Etiqueta.buscarPorReferencia);
 routes.get(`${prefix}/buscar-ativo-por-referencia/:referencia`,authAdministrador,Etiqueta.buscarAtivosPorReferencia);
+
+prefix = '/parceiro';
+routes.post(`${prefix}/cadastrar`,authAdministrador,Parceiro.cadastrar);
+routes.put(`${prefix}/alterar/:id`,authAdministrador,Parceiro.alterar);
+routes.get(`${prefix}/buscar-ativo-por-nome/:nome`,authAdministrador,Parceiro.buscarAtivoPorNome);
+routes.get(`${prefix}/buscar-por-nome`,authAdministrador,Parceiro.buscarPorNome);
 
 // prefix = '/file';
 // routes.get(`${prefix}/generate/:cod/:lote/:etiqueta/:qtd`, FileExport.file2);

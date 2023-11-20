@@ -6,7 +6,7 @@ import {Token} from '../domain/entities/token';
 // const tokenManager = require('../controllers/TokenManager');
 
 
-export async function authAdministrador(req:Request,res:Response,next:NextFunction) {
+export async function authGeral(req:Request,res:Response,next:NextFunction) {
 
     const authHeader = req.headers.authorization;
 
@@ -25,8 +25,6 @@ export async function authAdministrador(req:Request,res:Response,next:NextFuncti
     const results = await Token.carregarPorToken(token)
     try {
         verify(token, authConfig.secret);
-        if(results?.usuario.tipo != "Administrador")
-            return res.status(401).send({ error:'Access denied!'});
 
         return next();
     } catch (error) {
