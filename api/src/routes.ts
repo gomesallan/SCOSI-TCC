@@ -33,7 +33,8 @@ routes.get(`${prefix}/buscar-ativo-por-cod`,authAdministrador,Produto.buscarAtiv
 prefix = '/etiqueta';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Etiqueta.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Etiqueta.alterar);
-routes.get(`${prefix}/buscar-ativo-por-cod`,authAdministrador,Produto.buscarAtivoPorCod);
+routes.get(`${prefix}/buscar-por-referencia`,authAdministrador,Etiqueta.buscarPorReferencia);
+routes.get(`${prefix}/buscar-ativo-por-referencia/:referencia`,authAdministrador,Etiqueta.buscarAtivosPorReferencia);
 
 // prefix = '/file';
 // routes.get(`${prefix}/generate/:cod/:lote/:etiqueta/:qtd`, FileExport.file2);

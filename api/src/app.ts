@@ -1,5 +1,5 @@
 import express from 'express'
-import {Application, Request, Response} from 'express'
+import {Application, Request, Response, NextFunction} from 'express'
 import cors  from 'cors'
 const routes = require('./routes')
 
@@ -19,7 +19,7 @@ class App{
   } 
 
   private routes(): void {
-    this.express.use((error: any, req: Request, res: Response, next: any) => {
+    this.express.use((error: any, req: Request, res: Response, next: NextFunction) => {
         res.status(error.status || 500)
         res.json({
             code: error.code,

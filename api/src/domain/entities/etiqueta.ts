@@ -4,31 +4,29 @@ import { PrismaClient,Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export type ProdutoProps = {
+export type EtiquetaProps = {
     id:number;
-    nome: string;
-    cod: number;  
+    referencia: string;
+    url: string;  
     data_cadastro?: Date; 
     ativo?: number;
-    etiqueta_id:number;
 };
 
-export class Produto extends Entity<ProdutoProps> {
-    private constructor(props: ProdutoProps, id?: string){
+export class Etiqueta extends Entity<EtiquetaProps> {
+    private constructor(props: EtiquetaProps, id?: string){
         super(props,id);
     }
 
     static async cadastrar(req:Request,res:Response){
 
-        const { nome,cod,etiqueta_id } : ProdutoProps= req.body;
+        const { referencia,url } : EtiquetaProps= req.body;
 
         try{
-            await prisma.produto.create({
+            await prisma.etiqueta.create({
                 data:{
-                    nome: nome,
+                    referencia: referencia,
                     data_cadastro:new Date(),
-                    cod: cod,
-                    etiqueta_id:etiqueta_id,
+                    url: url
                 }
             });
 
@@ -37,24 +35,26 @@ export class Produto extends Entity<ProdutoProps> {
             if(e instanceof Prisma.PrismaClientKnownRequestError){
              res.status(500).send({errorCode:e.message})
             }
+            res.status(500).send({errorCode:e})
+            console.log(e);
+
       }
     }
     static async alterar(req:Request,res:Response){
         
         const {id} = req.params;
         var idd:number = +id; 
-        const { nome,cod,etiqueta_id,ativo } : ProdutoProps= req.body;
+        const { referencia,url,ativo } : EtiquetaProps= req.body;
         
         try{
-            await prisma.produto.update({
+            await prisma.etiqueta.update({
                 where:{
                     id:idd
                 },
                 data:{
-                    nome: nome,
-                    cod: cod,
-                    ativo:ativo,
-                    etiqueta_id:etiqueta_id,
+                  referencia: referencia,
+                  url: url,
+                  ativo: ativo
                 }
             });
 
@@ -65,17 +65,16 @@ export class Produto extends Entity<ProdutoProps> {
             }
       }
     }
-    static async buscarPorCod(req:Request,res: Response){
+    static async buscarPorReferencia(req:Request,res: Response){
 
-        const {cod,pg}:any = req.body;
-        const codlike = `%${cod}%`; 
-        console.log(cod);
+        const {referencia,pg}:any = req.body;
+        const referencialike = `%${referencia}%`; 
         try{
-          const produto = await prisma.$queryRaw(
-            Prisma.sql`SELECT * FROM produto WHERE cod LIKE ${codlike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
+          const Etiqueta = await prisma.$queryRaw(
+            Prisma.sql`SELECT * FROM etiqueta WHERE referencia LIKE ${referencialike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
           )
     
-          return res.send(produto);
+          return res.send(Etiqueta);
     
         }catch(e){
           if(e instanceof Prisma.PrismaClientKnownRequestError){
@@ -84,17 +83,17 @@ export class Produto extends Entity<ProdutoProps> {
         }
     
       }
-    static async buscarAtivoPorCod(req:Request,res: Response){
+    static async buscarAtivosPorReferencia(req:Request,res: Response){
 
-        const {cod,pg}:any = req.body;
-        const codlike = `%${cod}%`; 
-        console.log(cod);
+        const {pg}:any = req.body;
+        const {referencia} : any = req.params;
+        const referencialike = `%${referencia}%`; 
         try{
-          const produto = await prisma.$queryRaw(
-            Prisma.sql`SELECT * FROM produto WHERE ativo = 1 AND cod LIKE ${codlike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
+          const Etiqueta = await prisma.$queryRaw(
+            Prisma.sql`SELECT * FROM etiqueta WHERE ativo = 1 AND referencia LIKE ${referencialike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
           )
     
-          return res.send(produto);
+          return res.send(Etiqueta);
     
         }catch(e){
           if(e instanceof Prisma.PrismaClientKnownRequestError){

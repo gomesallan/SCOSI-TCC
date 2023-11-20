@@ -48,24 +48,55 @@ model etiqueta {
 model administrador {
   id            Int        @id @default(autoincrement())
   data_cadastro DateTime   @db.DateTime(0)
-  nome          String     @db.VarChar(100) @unique
-  login         String     @db.VarChar(100)
-  senha         String     @db.Text
+  nome          String     @db.VarChar(100) 
+  usuario_id    Int     
   parceiro      parceiro[]
+  usuario       usuario    @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_administrador_usuario1")
+
+  @@index([usuario_id], map: "fk_administrador_usuario1_idx")
 }
 
 model parceiro {
   id               Int           @id @default(autoincrement())
   data_cadastro    DateTime      @db.DateTime(0)
   nome             String        @db.VarChar(100)
-  login            String        @db.VarChar(100) @unique
-  senha            String        @db.Text
   ativo            Int           @default(1)
   administrador_id Int
+  usuario_id Int
   ordem            ordem[]
   administrador    administrador @relation(fields: [administrador_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_parceiro_administrador1")
+  usuario          usuario       @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_parceiro_usuario1")
 
+  @@index([usuario_id], map: "fk_parceiro_usuario1_idx")
   @@index([administrador_id], map: "fk_parceiro_administrador1_idx")
+}
+
+model usuario {
+  id               Int           @id @default(autoincrement())
+  data_cadastro    DateTime      @db.DateTime(0)
+  login            String        @db.VarChar(100) @unique
+  senha            String        @db.Text
+  tipo             usuario_tipo
+  parceiro         parceiro[]
+  administrador    administrador[]
+  token            token[]
+
+}
+model token {
+  id               Int           @id @default(autoincrement())
+  data_cadastro    DateTime      @db.DateTime(0)
+  data_alteracao   DateTime      @db.DateTime(0)
+  token            String        @db.VarChar(500) @unique
+  ativo            Int           @default(1)
+  usuario_id       Int
+  usuario          usuario       @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_token_usuario1")
+
+  @@index([usuario_id], map: "fk_token_usuario1_idx")
+}
+
+enum usuario_tipo {
+  Administrador
+  Parceiro
 }
 
 enum ordem_status {

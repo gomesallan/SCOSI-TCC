@@ -1,30 +1,30 @@
 Arguments: 
-  /Users/allangomes/.nvm/versions/node/v16.0.0/bin/node /usr/local/bin/yarn add @types/prisma
+  /Users/allangomes/.nvm/versions/node/v21.1.0/bin/node /usr/local/bin/yarn add @type/jsonwebtoken
 
 PATH: 
-  /Users/allangomes/.nvm/versions/node/v16.0.0/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Users/allangomes/.nvm/versions/node/v16.0.0/bin:/opt/homebrew/bin:/Users/allangomes/Android/Sdk/emulator:/Users/allangomes/Android/Sdk/tools:/Users/allangomes/Android/Sdk/tools/bin:/Users/allangomes/Android/Sdk/platform-tools:/Users/allangomes/Android/Sdk/emulator:/Users/allangomes/Android/Sdk/tools:/Users/allangomes/Android/Sdk/tools/bin:/Users/allangomes/Android/Sdk/platform-tools
+  /Users/allangomes/.nvm/versions/node/v21.1.0/bin:/Users/allangomes/.nvm/versions/node/v16.0.0/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Users/allangomes/.nvm/versions/node/v16.0.0/bin:/opt/homebrew/bin:/Users/allangomes/Android/Sdk/emulator:/Users/allangomes/Android/Sdk/tools:/Users/allangomes/Android/Sdk/tools/bin:/Users/allangomes/Android/Sdk/platform-tools:/Users/allangomes/Android/Sdk/emulator:/Users/allangomes/Android/Sdk/tools:/Users/allangomes/Android/Sdk/tools/bin:/Users/allangomes/Android/Sdk/platform-tools
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  16.0.0
+  21.1.0
 
 Platform: 
   darwin arm64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fprisma: Not found
-      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66145:18)
-      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140890:22)
-      at Request.emit (node:events:365:28)
+  Error: https://registry.yarnpkg.com/@type%2fjsonwebtoken: Not found
+      at params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:515:28)
       at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141862:10)
-      at Request.emit (node:events:365:28)
+      at Request.emit (node:events:515:28)
       at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141784:12)
-      at Object.onceWrapper (node:events:471:28)
-      at IncomingMessage.emit (node:events:377:35)
-      at endReadableNT (node:internal/streams/readable:1312:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+      at Object.onceWrapper (node:events:629:28)
+      at IncomingMessage.emit (node:events:527:35)
+      at endReadableNT (node:internal/streams/readable:1589:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
@@ -55,12 +55,14 @@ npm manifest:
     },
     "dependencies": {
       "@prisma/client": "^3.10.0",
+      "bcryptjs": "^2.4.3",
       "cors": "^2.8.5",
       "express": "^4.17.3",
+      "express-async-errors": "^3.1.1",
       "fast-csv": "^4.3.6",
-      "jsonwebtoken": "^8.5.1",
+      "jsonwebtoken": "^9.0.2",
       "nodemon": "^2.0.15",
-      "prisma": "^3.10.0",
+      "prisma": "^5.5.2",
       "slug": "^5.3.0"
     }
   }
@@ -639,10 +641,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a.tgz#4edae57cf6527f35e22cebe75e49214fc0e99ac9"
     integrity sha512-D+yHzq4a2r2Rrd0ZOW/mTZbgDIkUkD8ofKgusEI1xPiZz60Daks+UM7Me2ty5FzH3p/TgyhBpRrfIHx+ha20RQ==
   
-  "@prisma/engines@3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a":
-    version "3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a"
-    resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a.tgz#7fa11bc26a51d450185c816cc0ab8cac673fb4bf"
-    integrity sha512-LwZvI3FY6f43xFjQNRuE10JM5R8vJzFTSmbV9X0Wuhv9kscLkjRlZt0BEoiHmO+2HA3B3xxbMfB5du7ZoSFXGg==
+  "@prisma/engines@5.5.2":
+    version "5.5.2"
+    resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-5.5.2.tgz#fe0d2361a48c7d59568ccf0d35c75432594e1ac1"
+    integrity sha512-Be5hoNF8k+lkB3uEMiCHbhbfF6aj1GnrTBnn5iYFT7GEr3TsOEp1soviEcBR0tYCgHbxjcIxJMhdbvxALJhAqg==
   
   "@sindresorhus/is@^0.14.0":
     version "0.14.0"
@@ -1133,6 +1135,11 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
     integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+  
+  bcryptjs@^2.4.3:
+    version "2.4.3"
+    resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+    integrity sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==
   
   binary-extensions@^2.0.0:
     version "2.2.0"
@@ -1717,6 +1724,11 @@ Lockfile:
       jest-get-type "^27.5.1"
       jest-matcher-utils "^27.5.1"
       jest-message-util "^27.5.1"
+  
+  express-async-errors@^3.1.1:
+    version "3.1.1"
+    resolved "https://registry.yarnpkg.com/express-async-errors/-/express-async-errors-3.1.1.tgz#6053236d61d21ddef4892d6bd1d736889fc9da41"
+    integrity sha512-h6aK1da4tpqWSbyCa3FxB/V6Ehd4EEB15zyQq9qe75OZBp0krinNKuH4rAY+S/U/2I36vdLAUFSjQJ+TFmODng==
   
   express@^4.17.3:
     version "4.18.1"
@@ -2687,10 +2699,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
     integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
   
-  jsonwebtoken@^8.5.1:
-    version "8.5.1"
-    resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
-    integrity sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==
+  jsonwebtoken@^9.0.2:
+    version "9.0.2"
+    resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-9.0.2.tgz#65ff91f4abef1784697d40952bb1998c504caaf3"
+    integrity sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==
     dependencies:
       jws "^3.2.2"
       lodash.includes "^4.3.0"
@@ -2701,7 +2713,7 @@ Lockfile:
       lodash.isstring "^4.0.1"
       lodash.once "^4.0.0"
       ms "^2.1.1"
-      semver "^5.6.0"
+      semver "^7.5.4"
   
   jwa@^1.4.1:
     version "1.4.1"
@@ -3185,12 +3197,12 @@ Lockfile:
       ansi-styles "^5.0.0"
       react-is "^17.0.1"
   
-  prisma@^3.10.0:
-    version "3.14.0"
-    resolved "https://registry.yarnpkg.com/prisma/-/prisma-3.14.0.tgz#dd67ece37d7b5373e9fd9588971de0024b49be81"
-    integrity sha512-l9MOgNCn/paDE+i1K2fp9NZ+Du4trzPTJsGkaQHVBufTGqzoYHuNk8JfzXuIn0Gte6/ZjyKj652Jq/Lc1tp2yw==
+  prisma@^5.5.2:
+    version "5.5.2"
+    resolved "https://registry.yarnpkg.com/prisma/-/prisma-5.5.2.tgz#54ad2f04f0dd4174f27128e4447013e8d75c4d69"
+    integrity sha512-WQtG6fevOL053yoPl6dbHV+IWgKo25IRN4/pwAGqcWmg7CrtoCzvbDbN9fXUc7QS2KK0LimHIqLsaCOX/vHl8w==
     dependencies:
-      "@prisma/engines" "3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a"
+      "@prisma/engines" "5.5.2"
   
   prompts@^2.0.1:
     version "2.4.2"
@@ -3370,7 +3382,7 @@ Lockfile:
     dependencies:
       semver "^6.3.0"
   
-  semver@^5.6.0, semver@^5.7.1:
+  semver@^5.7.1:
     version "5.7.1"
     resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
     integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
@@ -3384,6 +3396,13 @@ Lockfile:
     version "7.3.7"
     resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.7.tgz#12c5b649afdbf9049707796e22a4028814ce523f"
     integrity sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==
+    dependencies:
+      lru-cache "^6.0.0"
+  
+  semver@^7.5.4:
+    version "7.5.4"
+    resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.4.tgz#483986ec4ed38e1c6c48c34894a9182dbff68a6e"
+    integrity sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==
     dependencies:
       lru-cache "^6.0.0"
   
