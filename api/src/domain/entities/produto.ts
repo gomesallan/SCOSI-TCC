@@ -37,6 +37,7 @@ export class Produto extends Entity<ProdutoProps> {
             if(e instanceof Prisma.PrismaClientKnownRequestError){
              res.status(500).send({errorCode:e.message})
             }
+            console.log(e)
       }
     }
     static async alterar(req:Request,res:Response){
