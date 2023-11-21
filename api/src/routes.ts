@@ -46,9 +46,6 @@ routes.put(`${prefix}/alterar/:id`,authAdministrador,Parceiro.alterar);
 routes.get(`${prefix}/buscar-ativo-por-nome/:nome`,authAdministrador,Parceiro.buscarAtivoPorNome);
 routes.get(`${prefix}/buscar-por-nome`,authAdministrador,Parceiro.buscarPorNome);
 
-
-// routes.post(`${prefix}/get`, FileExport.readProducts);
-
 prefix = '/ordem';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Ordem.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Ordem.alterar);
