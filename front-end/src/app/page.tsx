@@ -31,13 +31,13 @@ export function CardLogin() {
     <Card className="w-[550px]">
       <CardHeader>
         <CardTitle>Entrar</CardTitle>
-        <CardDescription>Informe seu usuario e senha.</CardDescription>
+        <CardDescription>Informe seu usuário e senha.</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Usuario</Label>
+              <Label htmlFor="name">Usuário</Label>
               <Input id="name" placeholder="Name of your project" />
             </div>
             <div className="flex flex-col space-y-1.5">
