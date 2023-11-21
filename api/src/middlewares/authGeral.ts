@@ -1,9 +1,7 @@
 import { NextFunction,Request,Response } from "express";
 import {verify,sign} from 'jsonwebtoken';
-// const jwt = require('jsonwebtoken');
-const authConfig = require('../config/auth.json');
 import {Token} from '../domain/entities/token';
-// const tokenManager = require('../controllers/TokenManager');
+import Auth from "../config/auth";
 
 
 export async function authGeral(req:Request,res:Response,next:NextFunction) {
@@ -24,7 +22,7 @@ export async function authGeral(req:Request,res:Response,next:NextFunction) {
     
     const results = await Token.carregarPorToken(token)
     try {
-        verify(token, authConfig.secret);
+        verify(token, Auth.secret().secret);
 
         return next();
     } catch (error) {
@@ -36,7 +34,7 @@ export async function authGeral(req:Request,res:Response,next:NextFunction) {
                 if(results.token == token){
                     // console.log('novo token');
                     // return res.status(401).send({ error:'Token expired'});
-                    const token = sign({ id: results.id}, authConfig.secret,{
+                    const token = sign({ id: results.id}, Auth.secret().secret,{
                         expiresIn: "20d"
                     });
                     results.token = token; 

@@ -2,7 +2,8 @@ import { Entity } from '../../core/domain/Entity';
 import {Request, Response} from 'express';
 import { PrismaClient,Prisma, usuario_tipo } from '@prisma/client'
 import { Token, TokenProps } from './token';
-const authConfig = require('../../config/auth.json');
+import Auth from '../../config/auth';
+// import { Auth } from '../../config/auth';
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs'); 
 
@@ -85,7 +86,7 @@ export class Usuario extends Entity<UsuarioProps> {
           if(!await bcrypt.compare(senha, usuario.senha))
             return res.status(400).send({ error: "Senha inválida"});
 
-          const token = jwt.sign({ id: usuario.id}, authConfig.secret,{expiresIn: "20d"});   
+          const token = jwt.sign({ id: usuario.id}, Auth.secret().secret,{expiresIn: "20d"});   
           usuario.senha = "";
 
           const tokenProps : TokenProps = req.body

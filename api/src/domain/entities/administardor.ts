@@ -2,7 +2,7 @@ import { Entity } from '../../core/domain/Entity';
 import {Request, Response} from 'express';
 import { PrismaClient,Prisma } from '@prisma/client'
 import { Usuario, UsuarioProps } from './usuario';
-const authConfig = require('../../config/auth.json');
+// const authConfig = require('../../config/auth.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs'); 
 
