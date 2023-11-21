@@ -6,8 +6,7 @@ export type EanProps = {
     cod_produto:string,
     lote:number,
     qtd:number,
-    etiqueta:string,
-    comex:number,
+    etiqueta:string
 }
 
 export class Ean extends Entity<EanProps>{

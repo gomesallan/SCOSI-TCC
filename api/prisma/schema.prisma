@@ -10,12 +10,11 @@ datasource db {
 model ordem {
   id                Int          @id @default(autoincrement())
   data_cadastro     DateTime     @db.DateTime(0)
+  data_alteracao    DateTime    @db.DateTime(0)
   lote              Int
   qtd               Int
   status            ordem_status
-  etiqueta          String       @db.VarChar(200)
   produto_id        Int
-  administrador_id  Int
   parceiro_id       Int
   parceiro          parceiro     @relation(fields: [parceiro_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ordem_parceiro1")
   produto           produto      @relation(fields: [produto_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ordem_produto1")

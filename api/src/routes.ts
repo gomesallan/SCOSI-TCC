@@ -15,6 +15,9 @@ import { Usuario } from './domain/entities/usuario';
 import { authAdministrador } from './middlewares/authAdministrador';
 import { Etiqueta } from './domain/entities/etiqueta';
 import { Parceiro } from './domain/entities/parceiro';
+import { Ordem } from './domain/entities/ordem';
+import { authGeral } from './middlewares/authGeral';
+import { Arquivo } from './domain/entities/arquivo';
 
 var prefix = '';
 
@@ -43,13 +46,19 @@ routes.put(`${prefix}/alterar/:id`,authAdministrador,Parceiro.alterar);
 routes.get(`${prefix}/buscar-ativo-por-nome/:nome`,authAdministrador,Parceiro.buscarAtivoPorNome);
 routes.get(`${prefix}/buscar-por-nome`,authAdministrador,Parceiro.buscarPorNome);
 
-// prefix = '/file';
-// routes.get(`${prefix}/generate/:cod/:lote/:etiqueta/:qtd`, FileExport.file2);
+
 // routes.post(`${prefix}/get`, FileExport.readProducts);
 
-// prefix = '/production';
-// routes.get(`${prefix}/listOrder`, Ordens.listOrdens);
-// routes.delete(`${prefix}/delete`, Ordens.delete);
+prefix = '/ordem';
+routes.post(`${prefix}/cadastrar`,authAdministrador,Ordem.cadastrar);
+routes.put(`${prefix}/alterar/:id`,authAdministrador,Ordem.alterar);
+routes.put(`${prefix}/alterar-status/:id`,authGeral, Ordem.alterarStatus);
+routes.delete(`${prefix}/excluir/:id`,authAdministrador, Ordem.excluir);
+routes.get(`${prefix}/listar-por-status/:status`,authAdministrador, Ordem.listarPorStatus);
+routes.get(`${prefix}/listar-por-status-e-parceiro/:parceiro/:status`,authGeral, Ordem.listarPorStatusEParceiro);
+
+prefix = '/arquivo';
+routes.get(`${prefix}/gerar/:ordem_id`,authGeral, Arquivo.gerarArquivo);
 
 
 module.exports = routes    
