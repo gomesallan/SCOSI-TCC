@@ -18,7 +18,7 @@ async function getData(): Promise<Payment[]> {
         btn={<Button className="mr-1 bg-yellow-500 hover:bg-yellow-600 float-right" size="icon"><Pencil size={18}/></Button>} 
         titulo="Alterar Produto" 
         descricao="..."
-        formulario={FormularioAlterarProduto()}
+        formulario={FormularioAlterar()}
         />)
     },
     {
@@ -30,7 +30,7 @@ async function getData(): Promise<Payment[]> {
         btn={<Button className="mr-1 bg-yellow-500 hover:bg-yellow-600 float-right" size="icon"><Pencil size={18}/></Button>} 
         titulo="Alterar Produto" 
         descricao="..."
-        formulario={FormularioAlterarProduto()}
+        formulario={FormularioAlterar()}
         />)
     },
     
@@ -53,7 +53,7 @@ export default async function Home() {
                         btn={<Button>Novo Produto</Button>} 
                         titulo="Cadastrar Produto" 
                         descricao="Preencha os campos abaixo para cadastrar um novo Produto."
-                        formulario={FormularioProduto()}
+                        formulario={Formulario()}
                         
                     />
                 </div>
@@ -67,7 +67,7 @@ export default async function Home() {
     )
   }
 
-  function FormularioProduto(){
+  function Formulario(){
     return (
         <>
         <div className="grid grid-cols-4 items-center gap-4">
@@ -103,7 +103,7 @@ export default async function Home() {
         </>
     )
   }
-  function FormularioAlterarProduto(){
+  function FormularioAlterar(){
     return (
         <>
         <div className="grid grid-cols-4 items-center gap-4">

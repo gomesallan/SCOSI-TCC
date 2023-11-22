@@ -26,7 +26,7 @@ export default function Menu(){
             <h1 className="font-black text-3xl  box-decoration-slice bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-2">SCOSI </h1> */}
             <div className="grid grid-cols-8  py-5 px-10">
                 <h1 className="font-black text-3xl flex items-center ">SCOSI </h1>
-                <div className=" ml-10 ">
+                <div className=" ml-10 z-10">
                     <ToggleGroup type="single" defaultValue="inicio">
                         <Link href="/dashboard">
                             <ToggleGroupItem value="inicio">Início</ToggleGroupItem>
