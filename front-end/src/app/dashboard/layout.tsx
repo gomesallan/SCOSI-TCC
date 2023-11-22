@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '../globals.css'
 import Menu from './components/menu'
+import { Separator } from "@/components/ui/separator";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Menu/>
         {children}
+        <footer className='py-5 px-5 text-center text-slate-400'>Copyright © 2023 | By Állan Gomes</footer>
         </body>
     </html>
   )
