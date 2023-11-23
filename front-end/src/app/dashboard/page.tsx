@@ -1,3 +1,4 @@
+'use client'
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,9 +8,12 @@ import { Label } from "@/components/ui/label"
 import { DialogAlertBase, DialogFormBase } from "./components/dialog";
 import { ScrollArea,ScrollBar } from "@/components/ui/scroll-area"
 import { Check, Pencil, Trash, RefreshCcw } from "lucide-react"
+import { useContext } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Home() {
-    const tipo_usuario = 'Administrador';
+    const {usuario} = useContext(AuthContext)
+    const tipo_usuario = usuario?.usuario.tipo;
     return (
       <div className="min-h-screen bg-slate-100 p-10">
           <div className=" grid grid-cols-2 ">
@@ -19,13 +23,16 @@ export default function Home() {
             </div>
             <div className="flex justify-end">
                 <div className="text-right mt-2">
+                { usuario?.usuario.tipo == 'Administrador'? (  
                     <DialogFormBase 
                         btn={<Button>Nova Ordem de Serviço</Button>} 
                         titulo="Cadastrar Ordem" 
                         descricao="Preencha os campos abaixo para gerar uma nova Ordem de Serviço."
                         formulario={FormularioOrdem()}
                         
-                    />
+                    />):
+                    null
+                    }
                 </div>
             </div>
           </div>
@@ -203,7 +210,7 @@ export default function Home() {
                 {/* PARTE VISIVEL SOMENTE PARA "PARCEIRO" */}
                 { 
                 (tipo_usuario == 'Parceiro') && 
-                (status != 'Enviado' ||
+                (status != 'Enviado' &&
                 status != 'Concluido')
                 ? (
                     <div className="grid grid-cols-2 mt-8">

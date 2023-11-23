@@ -37,20 +37,24 @@ export default function Menu(){
             <div className="grid grid-cols-8  py-5 px-10">
                 <h1 className="font-black text-3xl flex items-center ">SCOSI </h1>
                 <div className=" ml-10 z-10">
-                    <ToggleGroup type="single" defaultValue="inicio">
-                        <Link href="/dashboard">
-                            <ToggleGroupItem value="inicio">Início</ToggleGroupItem>
-                        </Link>
-                        <Link href="/dashboard/produtos">
-                            <ToggleGroupItem value="produtos">Produtos</ToggleGroupItem>
-                        </Link>
-                        <Link href="/dashboard/etiquetas">
-                            <ToggleGroupItem value="etiquetas">Etiquetas</ToggleGroupItem>
-                        </Link>
-                        <Link href="/dashboard/parceiros">
-                            <ToggleGroupItem value="parceiros">Parceiros</ToggleGroupItem>
-                        </Link>
-                    </ToggleGroup>
+                    { usuario?.usuario.tipo == 'Administrador'? (  
+                        <ToggleGroup type="single" defaultValue="inicio">
+                            <Link href="/dashboard">
+                                <ToggleGroupItem value="inicio">Início</ToggleGroupItem>
+                            </Link>
+                            <Link href="/dashboard/produtos">
+                                <ToggleGroupItem value="produtos">Produtos</ToggleGroupItem>
+                            </Link>
+                            <Link href="/dashboard/etiquetas">
+                                <ToggleGroupItem value="etiquetas">Etiquetas</ToggleGroupItem>
+                            </Link>
+                            <Link href="/dashboard/parceiros">
+                                <ToggleGroupItem value="parceiros">Parceiros</ToggleGroupItem>
+                            </Link>
+                        </ToggleGroup>
+                    ):null
+
+                    }
                 </div>
                 <div className="flex justify-end col-span-6 ">
                     
