@@ -1,4 +1,6 @@
-import * as React from "react"
+"use client"
+
+import {useContext, useState} from "react"
  
 import { Button } from "@/components/ui/button"
 import {
@@ -11,13 +13,16 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { AlertCircle, Loader2 } from "lucide-react"
+ 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert"
+
+import { useForm } from 'react-hook-form' 
+import { AuthContext } from "@/contexts/AuthContext"
 
 export default function Home() {
   return (
@@ -27,29 +32,66 @@ export default function Home() {
   )
 }
 export function CardLogin() {
+  const { register, handleSubmit } = useForm();
+  const { signIn } = useContext(AuthContext);
+  const [erro, setErro] = useState('');
+  const [btnCarregar, setBtnCarregar] = useState(false);
+
+  async function handleSignIn(data:any) {
+    setBtnCarregar(true);
+    try {
+      await signIn(data)      
+      setBtnCarregar(false);
+    } catch (error:any) {
+      console.log(error);
+      setErro(error.response.data.error)
+      setBtnCarregar(false);
+    }
+  }
+
   return (
     <Card className="w-[550px]">
       <CardHeader>
         <CardTitle>Entrar</CardTitle>
         <CardDescription>Informe seu usuário e senha.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Usuário</Label>
-              <Input id="name" placeholder="Name of your project" />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="senha">Senha</Label>
-              <Input type="password" id="senha" placeholder="Name of your project" />
-            </div>
-          </div>
+        <form onSubmit={handleSubmit(handleSignIn)}>
+          <CardContent>
+              <div className="grid w-full items-center gap-4">
+                {erro?<AlertErro erro={erro}/>:null}
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="name">Usuário</Label>
+                  <Input {...register('usu')} id="name" placeholder="" />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="senha">Senha</Label>
+                  <Input {...register('senha')} type="password" id="senha" placeholder="" />
+                </div>
+              </div>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            {btnCarregar ?
+              <Button disabled>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Entrar
+              </Button>
+            :
+              <Button >Entrar</Button>
+            }
+          </CardFooter>
         </form>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button>Entrar</Button>
-      </CardFooter>
     </Card>
+  )
+}
+
+export function AlertErro({erro}:any) {
+  return (
+    <Alert variant="destructive">
+      <AlertCircle className="h-4 w-4" />
+      <AlertTitle>Erro</AlertTitle>
+      <AlertDescription>
+        {erro}
+      </AlertDescription>
+    </Alert>
   )
 }

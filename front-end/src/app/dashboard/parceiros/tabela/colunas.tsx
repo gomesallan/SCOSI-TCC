@@ -11,7 +11,7 @@ import Link from "next/link"
 export type Payment = {
   id: number
   nome: string
-  login: string
+  usuario: string
   ativo: string
   acao:any
 }
@@ -25,8 +25,8 @@ export const columns: ColumnDef<Payment>[] = [
         
     },
     {
-        accessorKey: "login",
-        header: "Login",
+        accessorKey: "usuario",
+        header: "Usuário",
     },
     {
         accessorKey: "ativo",

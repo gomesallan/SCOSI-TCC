@@ -95,7 +95,9 @@ export class Usuario extends Entity<UsuarioProps> {
 
           await Usuario.verificaToken(tokenProps);
 
-          return res.send({usuario:usuario,token:token});
+          const user = await Usuario.verificaTipoUsuario(usuario.id,usuario.tipo)
+
+          return res.send({usuario:user,token:token});
         }catch(e){
           console.log(e);
           if(e instanceof Prisma.PrismaClientKnownRequestError){
@@ -106,6 +108,35 @@ export class Usuario extends Entity<UsuarioProps> {
         }
     
       }
+      
+    static async carregarPorToken(req:Request,res:Response){
+        const {token}:any = req.body;
+        try{
+          const tokendb = await Token.carregarPorToken(token);
+          if(!tokendb)
+            return res.status(400).send({ error: "Token invalido"});
+          const usuer = await Usuario.verificaTipoUsuario(tokendb.usuario_id,tokendb.usuario.tipo)
+          return res.send(usuer);
+        }catch(e){
+          console.log(e);
+          return res.status(500).send(e); 
+        }
+        
+    }
+
+    static async verificaTipoUsuario(usuario:number,tipo:string){
+      if(tipo == 'Administrador'){
+          const administrador = await prisma.administrador.findFirst({include:{usuario:true}, where:{usuario_id:usuario}});
+          if(administrador)
+          administrador.usuario.senha = "";
+          return administrador;
+      }else{
+          const parceiro = await prisma.parceiro.findFirst({include:{usuario:true}, where:{usuario_id:usuario}});
+          if(parceiro)
+          parceiro.usuario.senha = "";
+          return parceiro;
+      }
+    }
 
     static async verificaToken(tokenProps:TokenProps){
         const tkprops :TokenProps = tokenProps;

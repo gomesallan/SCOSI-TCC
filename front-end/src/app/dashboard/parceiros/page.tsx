@@ -12,7 +12,7 @@ async function getData(): Promise<Payment[]> {
     {
       id: 1,
       nome: "Garfica BGRAF",
-      login: "bgraf",
+      usuario: "bgraf",
       ativo:"SIM",
       acao:(<DialogFormBase 
         btn={<Button className="mr-1 bg-yellow-500 hover:bg-yellow-600 float-right" size="icon"><Pencil size={18}/></Button>} 
@@ -69,7 +69,7 @@ export default async function Home() {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="username" className="text-right">
-                Login
+                Usuário
               </Label>
               <Input
                 id="qtd"
@@ -106,7 +106,7 @@ export default async function Home() {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="username" className="text-right">
-                Login
+                Usuário
               </Label>
               <Input
                 id="qtd"

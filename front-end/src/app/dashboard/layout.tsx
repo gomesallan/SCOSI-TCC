@@ -1,8 +1,11 @@
-import type { Metadata } from 'next'
+import type { GetServerSideProps, Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '../globals.css'
 import Menu from './components/menu'
 import { Separator } from "@/components/ui/separator";
+import { parseCookies } from 'nookies';
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +19,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  if(!verificaLogin()) {
+
+    redirect('/');
+  }
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -25,4 +34,18 @@ export default function RootLayout({
         </body>
     </html>
   )
+}
+
+
+export function verificaLogin() :boolean {
+  // const {['scosi.token']:token} = parseCookies();
+  const token = cookies().get('scosi.token');
+
+  // console.log(token);
+
+  if(!token)
+    return false
+
+  return true
+
 }

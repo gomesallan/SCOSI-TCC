@@ -23,6 +23,7 @@ var prefix = '';
 
 prefix = '/usuario';
 routes.post(`${prefix}/login`, Usuario.login);
+routes.post(`${prefix}/token`, authGeral,Usuario.carregarPorToken);
 
 prefix = '/administrador';
 routes.post(`${prefix}/cadastrar`, Administrador.cadastrar);
