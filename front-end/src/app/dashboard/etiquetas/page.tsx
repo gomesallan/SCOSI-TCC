@@ -1,32 +1,52 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { DialogFormBase } from "../components/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Payment, columns } from "./tabela/colunas"
+import { Etiqueta, columns } from "./tabela/colunas"
 import { DataTable } from "./tabela/data-table"
 import { Pencil } from "lucide-react";
+import { parseCookies } from "nookies";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Formulario } from "./novo";
  
-async function getData(): Promise<Payment[]> {
+async function getData(): Promise<Etiqueta[]> {
+  const { 'scosi.token': token_cookie }:any = parseCookies();
+  // const token_cookie = cookies().get('scosi.token')?.value;
+      try{
+
+        const dados:any =  await axios.get(`${process.env.URL}etiqueta/listar-todos`,{
+            headers:{
+                'Authorization': `Bearer ${token_cookie}`
+            }
+        });
+        const etiqueta:any = dados.data;
+        // console.log(usuario);
+        return etiqueta
+      }catch(e){
+          // console.log(e)
+          const etiqueta:any = [];
+          return etiqueta;
+      }
+
   // Fetch data from your API here.
-  return [
-    {
-      id: 1,
-      referencia: "EX009",
-      url: "http://localhost:3000/dashboard/etiquetas",
-      acao:(<DialogFormBase 
-        btn={<Button className="mr-1 bg-yellow-500 hover:bg-yellow-600 float-right" size="icon"><Pencil size={18}/></Button>} 
-        titulo="Alterar Etiqueta" 
-        descricao="..."
-        formulario={FormularioAlterar()}
-        />)
-    },
-    
-    // ...
-  ]
+  
 }
 
-export default async function Home() {
-  const data = await getData()
+export default function Home() {
+  const [data, setData] = useState<Etiqueta[]>();
+  const [atualizar,setAtualizar] = useState('');
+  useEffect(() => {
+    async function dataGet(){
+
+      const data:any = await getData()
+      setData(data)
+      console.log(data)
+    }
+    dataGet();
+  },[atualizar])
     return (
       <div className="min-h-screen bg-slate-100 p-10">
           <div className=" grid grid-cols-2 ">
@@ -40,69 +60,21 @@ export default async function Home() {
                         btn={<Button>Nova Etiqueta</Button>} 
                         titulo="Cadastrar Etiqueta" 
                         descricao="Preencha os campos abaixo para cadastrar um novo Etiqueta."
-                        formulario={Formulario()}
+                        formulario={<Formulario atualizar={setAtualizar}/>}
                         
                     />
                 </div>
             </div>
           </div>
           <div className="mx-auto py-10">
+            {data?
             <DataTable  columns={columns} data={data} />
+            :
+            null
+            }
             
           </div>
         </div>
     )
   }
-  function Formulario(){
-    return (
-        <>
-        <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Referência
-              </Label>
-              <Input
-                id="lote"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Url
-              </Label>
-              <Input
-                id="qtd"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-        </>
-    )
-  }
-
-  function FormularioAlterar(){
-    return (
-        <>
-        <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Referência
-              </Label>
-              <Input
-                id="lote"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Url
-              </Label>
-              <Input
-                id="qtd"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-        </>
-    )
-  }
+  

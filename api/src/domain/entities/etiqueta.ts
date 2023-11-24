@@ -65,14 +65,12 @@ export class Etiqueta extends Entity<EtiquetaProps> {
             }
       }
     }
-    static async buscarPorReferencia(req:Request,res: Response){
+    static async listarTodos(req:Request,res: Response){
 
         const {referencia,pg}:any = req.body;
         const referencialike = `%${referencia}%`; 
         try{
-          const Etiqueta = await prisma.$queryRaw(
-            Prisma.sql`SELECT * FROM etiqueta WHERE referencia LIKE ${referencialike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
-          )
+          const Etiqueta = await prisma.etiqueta.findMany();
     
           return res.send(Etiqueta);
     
