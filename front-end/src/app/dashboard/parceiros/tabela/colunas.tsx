@@ -113,12 +113,13 @@ function FormularioAlterar({dados}:any){
       }
     }
 
-  async function alterar({id,nome,login,senha}:any){
+  async function alterar({id,nome,login,senha,ativo}:any){
       
       const { 'scosi.token': token_cookie }:any = parseCookies();
       await axios.put(`${process.env.URL}parceiro/alterar/${id}`,{
           nome:nome,
           administrador_id:usuario?.id,
+          ativo:ativo,
           usuario:{
               login:login,
               senha:senha

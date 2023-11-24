@@ -81,6 +81,22 @@ export class Etiqueta extends Entity<EtiquetaProps> {
         }
     
       }
+    static async listarAtivos(req:Request,res: Response){
+
+        const {referencia,pg}:any = req.body;
+        const referencialike = `%${referencia}%`; 
+        try{
+          const Etiqueta = await prisma.etiqueta.findMany({where:{ativo:1}});
+    
+          return res.send(Etiqueta);
+    
+        }catch(e){
+          if(e instanceof Prisma.PrismaClientKnownRequestError){
+            res.status(500).send({errorCode:e.message})
+          }
+        }
+    
+      }
     static async buscarAtivosPorReferencia(req:Request,res: Response){
 
         const {pg}:any = req.body;

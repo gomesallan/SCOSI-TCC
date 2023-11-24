@@ -32,13 +32,14 @@ routes.put(`${prefix}/alterar/:id`, Administrador.alterar);
 prefix = '/produto';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Produto.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Produto.alterar);
-routes.get(`${prefix}/buscar-por-cod`,authAdministrador,Produto.buscarPorCod);
-routes.get(`${prefix}/buscar-ativo-por-cod`,authAdministrador,Produto.buscarAtivoPorCod);
+routes.get(`${prefix}/listar-todos`,authAdministrador,Produto.listarTodos);
+routes.get(`${prefix}/listar-ativo`,authAdministrador,Produto.listarAtivos);
 
 prefix = '/etiqueta';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Etiqueta.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Etiqueta.alterar);
 routes.get(`${prefix}/listar-todos`,authAdministrador,Etiqueta.listarTodos);
+routes.get(`${prefix}/listar-ativos`,authAdministrador,Etiqueta.listarAtivos);
 routes.get(`${prefix}/buscar-ativo-por-referencia/:referencia`,authAdministrador,Etiqueta.buscarAtivosPorReferencia);
 
 prefix = '/parceiro';

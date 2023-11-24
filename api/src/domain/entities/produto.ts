@@ -66,15 +66,13 @@ export class Produto extends Entity<ProdutoProps> {
             }
       }
     }
-    static async buscarPorCod(req:Request,res: Response){
+    static async listarTodos(req:Request,res: Response){
 
         const {cod,pg}:any = req.body;
         const codlike = `%${cod}%`; 
         console.log(cod);
         try{
-          const produto = await prisma.$queryRaw(
-            Prisma.sql`SELECT * FROM produto WHERE cod LIKE ${codlike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
-          )
+          const produto = await prisma.produto.findMany({include:{etiqueta:true}})
     
           return res.send(produto);
     
@@ -85,15 +83,13 @@ export class Produto extends Entity<ProdutoProps> {
         }
     
       }
-    static async buscarAtivoPorCod(req:Request,res: Response){
+    static async listarAtivos(req:Request,res: Response){
 
         const {cod,pg}:any = req.body;
         const codlike = `%${cod}%`; 
         console.log(cod);
         try{
-          const produto = await prisma.$queryRaw(
-            Prisma.sql`SELECT * FROM produto WHERE ativo = 1 AND cod LIKE ${codlike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
-          )
+          const produto = await prisma.produto.findMany({include:{etiqueta:true},where:{ativo:1}})
     
           return res.send(produto);
     
