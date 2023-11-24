@@ -32,12 +32,7 @@ export function DialogFormBase({
               {descricao}
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            {formulario}
-          </div>
-          <DialogFooter>
-            <Button type="submit">Salvar</Button>
-          </DialogFooter>
+          {formulario}
         </DialogContent>
       </Dialog>
     )

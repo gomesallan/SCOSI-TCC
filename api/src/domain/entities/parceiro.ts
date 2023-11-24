@@ -66,15 +66,16 @@ export class Parceiro extends Entity<ParceiroProps> {
         }
     
       }
-    static async buscarPorNome(req:Request,res: Response){
+    static async listarTodos(req:Request,res: Response){
 
         const {nome,pg}:any = req.body;
         const codlike = `%${nome}%`; 
         console.log(nome);
         try{
-          const produto = await prisma.$queryRaw(
-            Prisma.sql`SELECT * FROM parceiro WHERE  nome LIKE ${codlike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
-          )
+          // const produto = await prisma.$queryRaw(
+          //   Prisma.sql`SELECT * FROM parceiro WHERE  nome LIKE ${codlike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
+          // )
+          const produto = await prisma.parceiro.findMany({include:{usuario:true}});
     
           return res.send(produto);
     

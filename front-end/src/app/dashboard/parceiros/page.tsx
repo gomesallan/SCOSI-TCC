@@ -1,32 +1,57 @@
+'use client'
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { parseCookies } from "nookies";
+import { useForm } from 'react-hook-form' 
+
 import { Button } from "@/components/ui/button";
 import { DialogFormBase } from "../components/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Payment, columns } from "./tabela/colunas"
+import { Parceiro, columns } from "./tabela/colunas"
 import { DataTable } from "./tabela/data-table"
 import { Pencil } from "lucide-react";
+import {Formulario} from "./novo";
  
-async function getData(): Promise<Payment[]> {
+async function getData(): Promise<Parceiro[]> {
+  const { 'scosi.token': token_cookie }:any = parseCookies();
+  // const token_cookie = cookies().get('scosi.token')?.value;
+      try{
+
+        const dados:any =  await axios.get(`${process.env.URL}parceiro/listar-todos`,{
+            headers:{
+                'Authorization': `Bearer ${token_cookie}`
+            }
+        });
+        const usuario:any = dados.data;
+        // console.log(usuario);
+        return usuario
+      }catch(e){
+          // console.log(e)
+          const usuario:any = [];
+          return usuario;
+      }
+
   // Fetch data from your API here.
-  return [
-    {
-      id: 1,
-      nome: "Garfica BGRAF",
-      usuario: "bgraf",
-      ativo:"SIM",
-      acao:(<DialogFormBase 
-        btn={<Button className="mr-1 bg-yellow-500 hover:bg-yellow-600 float-right" size="icon"><Pencil size={18}/></Button>} 
-        titulo="Alterar Parceiro" 
-        descricao="..."
-        formulario={FormularioAlterar()}
-        />)
-    },
-    
-    // ...
-  ]
+  
 }
-export default async function Home() {
-  const data = await getData()
+
+
+export default function Parceiros() {
+  const [data, setData] = useState<Parceiro[]>();
+  const [atualizar,setAtualizar] = useState('');
+  useEffect(() => {
+    async function dataGet(){
+
+      const data:any = await getData()
+      setData(data)
+      console.log(data)
+    }
+    dataGet();
+  },[atualizar])
+
+
     return (
       <div className="min-h-screen bg-slate-100 p-10">
           <div className=" grid grid-cols-2 ">
@@ -40,90 +65,24 @@ export default async function Home() {
                         btn={<Button>Novo Parceiro</Button>} 
                         titulo="Cadastrar Parceiro" 
                         descricao="Preencha os campos abaixo para cadastrar um novo Parceiro."
-                        formulario={Formulario()}
+                        formulario={<Formulario atualizar={setAtualizar}/>}
                         
                     />
                 </div>
             </div>
           </div>
           <div className="mx-auto py-10">
+            {data?
             <DataTable  columns={columns} data={data} />
+            :
+            null
+            }
             
           </div>
         </div>
     )
   }
 
-  function Formulario(){
-    return (
-        <>
-        <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Nome
-              </Label>
-              <Input
-                id="lote"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Usuário
-              </Label>
-              <Input
-                id="qtd"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Senha
-              </Label>
-              <Input
-                id="qtd"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-        </>
-    )
-  }
+  
 
-  function FormularioAlterar(){
-    return (
-        <>
-        <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Nome
-              </Label>
-              <Input
-                id="lote"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Usuário
-              </Label>
-              <Input
-                id="qtd"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Senha
-              </Label>
-              <Input
-                id="qtd"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-        </>
-    )
-  }
+  

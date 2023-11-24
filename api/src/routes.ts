@@ -45,7 +45,7 @@ prefix = '/parceiro';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Parceiro.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Parceiro.alterar);
 routes.get(`${prefix}/buscar-ativo-por-nome/:nome`,authAdministrador,Parceiro.buscarAtivoPorNome);
-routes.get(`${prefix}/buscar-por-nome`,authAdministrador,Parceiro.buscarPorNome);
+routes.get(`${prefix}/listar-todos`,authAdministrador,Parceiro.listarTodos);
 
 prefix = '/ordem';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Ordem.cadastrar);

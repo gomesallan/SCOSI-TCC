@@ -6,6 +6,7 @@ import { parseCookies, setCookie }  from "nookies";
 import { useRouter } from 'next/navigation'
 
 type Usuario = {
+    id:number;
     login:string;
     nome:string;
     usuario:any;
