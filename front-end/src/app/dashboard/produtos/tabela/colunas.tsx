@@ -143,7 +143,6 @@ function FormularioAlterar({dados}:any){
 
     async function handle(data:any) {
         setBtnCarregar(true);
-        console.log(data)
 
         try {
           await alterar(data)      
@@ -161,8 +160,8 @@ function FormularioAlterar({dados}:any){
         await axios.put(`${process.env.URL}produto/alterar/${id}`,{
             nome:nome,
             cod:parseInt(cod),
-            etiqueta_id:etiqueta_id,
-            ativo:ativo
+            etiqueta_id:parseInt(etiqueta_id),
+            ativo:parseInt(ativo)
             },{
                 headers:{
                     'Authorization': `Bearer ${token_cookie}`
@@ -183,6 +182,7 @@ function FormularioAlterar({dados}:any){
         name="etiqueta"
         render={({ field }) => (
           <div className="grid gap-4 py-4">
+            <input {... register('id')} defaultValue={dados.id} type="hidden" />
               <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
                   Nome
@@ -207,10 +207,11 @@ function FormularioAlterar({dados}:any){
               />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
+                <input {... register('ativo')} type="hidden" defaultValue={dados.ativo}/>
               <Label htmlFor="username" className="text-right">
                   Ativo
               </Label>
-              <Select {...register('ativo')} defaultValue={dados.ativo}>
+              <Select onValueChange={(eve) => { setValue('ativo',eve)}} defaultValue={dados.ativo.toString()}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Theme" />
                 </SelectTrigger>
