@@ -70,7 +70,7 @@ export const columns: ColumnDef<Etiqueta>[] = [
 
 function FormularioAlterar({dados}:any){
 const {usuario} = useContext(AuthContext)
-const { register, handleSubmit } = useForm({ shouldUseNativeValidation: true });
+const { register, handleSubmit, setValue } = useForm({ shouldUseNativeValidation: true });
 const [erro, setErro] = useState('');
 const [btnCarregar, setBtnCarregar] = useState(false);
 const [btnSucesso, setBtnSucesso] = useState(false);
@@ -89,16 +89,16 @@ async function handle(data:any) {
     }
   }
 
-async function alterar({id,nome,login,senha}:any){
+  async function alterar({id,referencia,url,ativo}:any){
+
     
     const { 'scosi.token': token_cookie }:any = parseCookies();
-    await axios.put(`${process.env.URL}parceiro/alterar/${id}`,{
-        nome:nome,
-        administrador_id:usuario?.id,
-        usuario:{
-            login:login,
-            senha:senha
-        }
+    console.log(token_cookie)
+
+    await axios.put(`${process.env.URL}etiqueta/alterar/${id}`,{
+        referencia:referencia,
+        url:url,
+        ativo:parseInt(ativo),
         },{
             headers:{
                 'Authorization': `Bearer ${token_cookie}`
@@ -115,7 +115,7 @@ return (
         {erro?<AlertErro erro={erro}/>:null}
         <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <input {...register('id')} value={dados.id} type="hidden" />
+              <input {...register('id')} defaultValue={dados.id} type="hidden" />
             <Label htmlFor="name" className="text-right">
                 Refêrencia
             </Label>
@@ -142,7 +142,8 @@ return (
             <Label htmlFor="username" className="text-right">
                 Ativo
             </Label>
-            <Select {...register('ativo')} defaultValue={dados.ativo}>
+            <input {... register('ativo')} type="hidden" defaultValue={dados.ativo}/>
+              <Select onValueChange={(eve) => { setValue('ativo',eve)}} defaultValue={dados.ativo.toString()}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Theme" />
               </SelectTrigger>

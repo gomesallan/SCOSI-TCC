@@ -49,6 +49,7 @@ model administrador {
   id            Int        @id @default(autoincrement())
   data_cadastro DateTime   @db.DateTime(0)
   nome          String     @db.VarChar(100) 
+  ativo         Int        @default(1)
   usuario_id    Int     
   parceiro      parceiro[]
   usuario       usuario    @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_administrador_usuario1")

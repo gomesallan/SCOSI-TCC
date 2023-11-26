@@ -207,10 +207,10 @@ function FormularioAlterar({dados}:any){
               />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <input {... register('ativo')} type="hidden" defaultValue={dados.ativo}/>
               <Label htmlFor="username" className="text-right">
                   Ativo
               </Label>
+              <input {... register('ativo')} type="hidden" defaultValue={dados.ativo}/>
               <Select onValueChange={(eve) => { setValue('ativo',eve)}} defaultValue={dados.ativo.toString()}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Theme" />

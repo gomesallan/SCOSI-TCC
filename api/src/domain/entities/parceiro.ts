@@ -91,7 +91,7 @@ export class Parceiro extends Entity<ParceiroProps> {
         const {id} = req.params;
         var idd:number = +id; 
         
-        const { nome, usuario } : ParceiroProps= req.body;
+        const { nome, usuario,ativo } : ParceiroProps= req.body;
         
         try{
             const Parceiro = await prisma.parceiro.update({
@@ -99,7 +99,8 @@ export class Parceiro extends Entity<ParceiroProps> {
                     id:idd
                 },
                 data:{
-                    nome: nome
+                    nome: nome,
+                    ativo:ativo
                 }
             });
             const usuariodb = await Usuario.buscarPorId(Parceiro.usuario_id)

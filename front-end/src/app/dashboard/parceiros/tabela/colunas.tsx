@@ -93,7 +93,7 @@ export const columns: ColumnDef<Parceiro>[] = [
 
 function FormularioAlterar({dados}:any){
   const {usuario} = useContext(AuthContext)
-  const { register, handleSubmit } = useForm({ shouldUseNativeValidation: true });
+  const { register, handleSubmit,setValue } = useForm({ shouldUseNativeValidation: true });
   const [erro, setErro] = useState('');
   const [btnCarregar, setBtnCarregar] = useState(false);
   const [btnSucesso, setBtnSucesso] = useState(false);
@@ -119,7 +119,7 @@ function FormularioAlterar({dados}:any){
       await axios.put(`${process.env.URL}parceiro/alterar/${id}`,{
           nome:nome,
           administrador_id:usuario?.id,
-          ativo:ativo,
+          ativo:parseInt(ativo),
           usuario:{
               login:login,
               senha:senha
@@ -178,7 +178,8 @@ function FormularioAlterar({dados}:any){
               <Label htmlFor="username" className="text-right">
                   Ativo
               </Label>
-              <Select {...register('ativo')} defaultValue={dados.ativo}>
+              <input {... register('ativo')} type="hidden" defaultValue={dados.ativo}/>
+              <Select onValueChange={(eve) => { setValue('ativo',eve)}} defaultValue={dados.ativo.toString()}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Theme" />
                 </SelectTrigger>

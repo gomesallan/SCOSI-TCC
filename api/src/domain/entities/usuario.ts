@@ -86,17 +86,20 @@ export class Usuario extends Entity<UsuarioProps> {
           if(!await bcrypt.compare(senha, usuario.senha))
             return res.status(400).send({ error: "Senha inválida"});
 
-          const token = jwt.sign({ id: usuario.id}, Auth.secret().secret,{expiresIn: "20d"});   
-          usuario.senha = "";
-
-          const tokenProps : TokenProps = req.body
-          tokenProps.token = token;
-          tokenProps.usuario = usuario;
-
-          await Usuario.verificaToken(tokenProps);
-
-          const user = await Usuario.verificaTipoUsuario(usuario.id,usuario.tipo)
-
+            
+            const token = jwt.sign({ id: usuario.id}, Auth.secret().secret,{expiresIn: "20d"});   
+            usuario.senha = "";
+            
+            const tokenProps : TokenProps = req.body
+            tokenProps.token = token;
+            tokenProps.usuario = usuario;
+            
+            await Usuario.verificaToken(tokenProps);
+            
+            const user = await Usuario.verificaTipoUsuario(usuario.id,usuario.tipo)
+            if(!user?.ativo)
+                return res.status(400).send({ error: "Usuário bloqueado"});
+            
           return res.send({usuario:user,token:token});
         }catch(e){
           console.log(e);

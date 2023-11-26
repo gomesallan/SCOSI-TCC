@@ -13,6 +13,7 @@ export type AdministradorProps = {
     data_cadastro?:Date;
     nome:string;
     usuario: UsuarioProps;
+    ativo:number
 };
 
 export class Administrador extends Entity<AdministradorProps> {
