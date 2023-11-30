@@ -5,7 +5,6 @@ import { DialogFormBase } from "../../components/dialog"
 import { Button } from "@/components/ui/button"
 import { Check, Loader2, Pencil } from "lucide-react"
 import Link from "next/link"
-import { AlertErro } from "@/app/page"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { SelectContent, SelectItem ,Select, SelectTrigger, SelectValue} from "@/components/ui/select"
@@ -15,6 +14,7 @@ import { AuthContext } from "@/contexts/AuthContext"
 import { useForm } from "react-hook-form"
 import { parseCookies } from "nookies"
 import axios from "axios"
+import { AlertErro } from "../../components/alert"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.

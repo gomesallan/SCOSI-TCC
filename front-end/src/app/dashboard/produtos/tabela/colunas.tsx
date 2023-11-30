@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { AuthContext } from "@/contexts/AuthContext"
-import { AlertErro } from "@/app/page"
 import {
   Select,
   SelectContent,
@@ -48,6 +47,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { AlertErro } from "../../components/alert"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.

@@ -14,15 +14,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { AlertCircle, Loader2 } from "lucide-react"
- 
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
 
 import { useForm } from 'react-hook-form' 
 import { AuthContext } from "@/contexts/AuthContext"
+import { AlertErro } from "./dashboard/components/alert"
 
 export default function Home() {
   return (
@@ -31,7 +26,7 @@ export default function Home() {
     </div>
   )
 }
-export function CardLogin() {
+ function CardLogin() {
   const { register, handleSubmit } = useForm();
   const { signIn } = useContext(AuthContext);
   const [erro, setErro] = useState('');
@@ -84,14 +79,3 @@ export function CardLogin() {
   )
 }
 
-export function AlertErro({erro}:any) {
-  return (
-    <Alert variant="destructive">
-      <AlertCircle className="h-4 w-4" />
-      <AlertTitle>Erro</AlertTitle>
-      <AlertDescription>
-        {erro}
-      </AlertDescription>
-    </Alert>
-  )
-}

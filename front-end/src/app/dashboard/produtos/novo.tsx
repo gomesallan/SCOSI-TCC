@@ -10,7 +10,6 @@ import { Produto } from "./tabela/colunas";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import { AuthContext } from "@/contexts/AuthContext";
-import { AlertErro } from "@/app/page";
 import { Check, Loader2,ChevronsUpDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -38,6 +37,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { AlertErro } from "../components/alert";
 
   const FormSchema = z.object({
     etiqueta: z.string({

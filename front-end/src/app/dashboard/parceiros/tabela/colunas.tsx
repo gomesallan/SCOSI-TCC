@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation"
 import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { AuthContext } from "@/contexts/AuthContext"
-import { AlertErro } from "@/app/page"
 import {
   Select,
   SelectContent,
@@ -22,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { AlertErro } from "../../components/alert"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.

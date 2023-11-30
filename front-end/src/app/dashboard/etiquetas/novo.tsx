@@ -10,9 +10,9 @@ import { Etiqueta } from "./tabela/colunas";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import { AuthContext } from "@/contexts/AuthContext";
-import { AlertErro } from "@/app/page";
 import { Check, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { AlertErro } from "../components/alert";
 
 export  function Formulario({atualizar}:any){
     const {usuario} = useContext(AuthContext)
