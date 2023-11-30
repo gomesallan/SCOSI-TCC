@@ -15,7 +15,6 @@ import { parseCookies } from "nookies";
 import { Skeleton } from "@/components/ui/skeleton"
 import { Produto } from "./produtos/tabela/colunas";
 import { Parceiro } from "./parceiros/tabela/colunas";
-import { dataAtualFormatada } from "@/util/util";
 import { Formulario } from "./novo";
 import { useForm } from "react-hook-form";
 import { DialogClose } from "@radix-ui/react-dialog";
@@ -23,7 +22,6 @@ import { userAgent } from "next/server";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-export { dataAtualFormatada} from "@/util/util"
 
 
 type Ordem = {
@@ -428,6 +426,15 @@ export default function Home() {
   }
 
 
+  function dataAtualFormatada(dat:any){
+    let data = new Date(dat),
+        dia  = data.getDate().toString().padStart(2, '0'),
+        mes  = (data.getMonth()+1).toString().padStart(2, '0'),
+        ano  = data.getFullYear();
+        var hora = ("00"+data.getHours()).slice(-2);
+        var minuto = ("00"+data.getMinutes()).slice(-2);
+    return `${dia}/${mes}/${ano} ${hora}:${minuto}`;
+  }
   
 
 
