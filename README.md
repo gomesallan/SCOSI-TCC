@@ -1,6 +1,6 @@
 # SCOSI-TCC
 
-A aplicação Node.js esta na pasta api/ e o front-end Next.js esta na pasta front-end/
+A API Node.js está na pasta api/ e o front-end Next.js esta na pasta front-end/
 
 ## URL do projeto
 
