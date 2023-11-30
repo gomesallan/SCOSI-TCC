@@ -86,6 +86,26 @@ export class Parceiro extends Entity<ParceiroProps> {
         }
     
       }
+    static async listarAtivos(req:Request,res: Response){
+
+        const {nome,pg}:any = req.body;
+        const codlike = `%${nome}%`; 
+        console.log(nome);
+        try{
+          // const produto = await prisma.$queryRaw(
+          //   Prisma.sql`SELECT * FROM parceiro WHERE  nome LIKE ${codlike} LIMIT 20 OFFSET ${(pg - 1) * 20}`
+          // )
+          const produto = await prisma.parceiro.findMany({include:{usuario:true},where:{ativo:1}});
+    
+          return res.send(produto);
+    
+        }catch(e){
+          if(e instanceof Prisma.PrismaClientKnownRequestError){
+            res.status(500).send({errorCode:e.message})
+          }
+        }
+    
+      }
     static async alterar(req:Request,res:Response){
         
         const {id} = req.params;

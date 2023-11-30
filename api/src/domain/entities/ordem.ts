@@ -146,7 +146,14 @@ export class Ordem extends Entity<OrdemProps> {
             return res.status(401).send({ error: 'Status inválido'});
         try{
             const nserie = await prisma.ordem.findMany({
-                include:{ parceiro:true, produto:true},
+                include:{ 
+                    parceiro:true,
+                    produto:{
+                        include:{
+                            etiqueta:true
+                        }
+                    }
+                },
                 where:{
                     AND: [
                         {

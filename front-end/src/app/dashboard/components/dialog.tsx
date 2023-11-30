@@ -41,7 +41,7 @@ export function DialogAlertBase({
     btn,
     titulo,
     descricao,
-    formulario
+    form
   }:any) {
     return (
       <Dialog>
@@ -56,15 +56,9 @@ export function DialogAlertBase({
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            {formulario}
           </div>
           <DialogFooter>
-            <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Não
-            </Button>
-          </DialogClose>
-            <Button type="submit">Sim</Button>
+            {form}
 
           </DialogFooter>
         </DialogContent>

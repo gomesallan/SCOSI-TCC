@@ -32,7 +32,7 @@ export class Arquivo extends Entity<ArquivoProps> {
         };
         console.log(eanProps)
         
-        var nserie = Ean.unifyParams(eanProps);
+        var nserie = Ean.unificarParametros(eanProps);
 
         console.log(nserie);
         if(!nserie)
@@ -43,7 +43,7 @@ export class Arquivo extends Entity<ArquivoProps> {
         await fastcsv
         .write(nserie, { headers: true })
         .on("finish", function() {
-            console.log("Write to CSV successfully!");
+            console.log("CSV Gerado!");
             
         })
         .pipe(ws);
@@ -54,7 +54,7 @@ export class Arquivo extends Entity<ArquivoProps> {
                     console.log(err);
                 }
                 fs.unlink(Arquivo, function(){
-                    console.log("Arquivo was deleted")
+                    console.log("CSV Excluido do servidor")
                 })
             });
         },5000);

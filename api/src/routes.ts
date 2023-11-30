@@ -33,7 +33,7 @@ prefix = '/produto';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Produto.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Produto.alterar);
 routes.get(`${prefix}/listar-todos`,authAdministrador,Produto.listarTodos);
-routes.get(`${prefix}/listar-ativo`,authAdministrador,Produto.listarAtivos);
+routes.get(`${prefix}/listar-ativos`,authAdministrador,Produto.listarAtivos);
 
 prefix = '/etiqueta';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Etiqueta.cadastrar);
@@ -47,6 +47,7 @@ routes.post(`${prefix}/cadastrar`,authAdministrador,Parceiro.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Parceiro.alterar);
 routes.get(`${prefix}/buscar-ativo-por-nome/:nome`,authAdministrador,Parceiro.buscarAtivoPorNome);
 routes.get(`${prefix}/listar-todos`,authAdministrador,Parceiro.listarTodos);
+routes.get(`${prefix}/listar-ativos`,authAdministrador,Parceiro.listarAtivos);
 
 prefix = '/ordem';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Ordem.cadastrar);
@@ -57,7 +58,7 @@ routes.get(`${prefix}/listar-por-status/:status`,authAdministrador, Ordem.listar
 routes.get(`${prefix}/listar-por-status-e-parceiro/:parceiro/:status`,authGeral, Ordem.listarPorStatusEParceiro);
 
 prefix = '/arquivo';
-routes.get(`${prefix}/gerar/:ordem_id`,authGeral, Arquivo.gerarArquivo);
+routes.get(`${prefix}/gerar/:ordem_id`, Arquivo.gerarArquivo);
 
 
 module.exports = routes    

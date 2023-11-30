@@ -59,6 +59,15 @@ export function AuthProvider({children}:any){
         setCookie(undefined, 'scosi.token',token,{
             maxAge: 60 * 60 * 24 * 20, // 20 dias
         });
+        setCookie(undefined, 'scosi.nome',usuario.nome,{
+            maxAge: 60 * 60 * 24 * 20, // 20 dias
+        });
+        setCookie(undefined, 'scosi.tipo',usuario.usuario.tipo,{
+            maxAge: 60 * 60 * 24 * 20, // 20 dias
+        });
+        setCookie(undefined, 'scosi.id',usuario.id,{
+            maxAge: 60 * 60 * 24 * 20, // 20 dias
+        });
 
         setUsuario(usuario);
 

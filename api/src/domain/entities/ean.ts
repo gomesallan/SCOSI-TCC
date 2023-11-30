@@ -10,7 +10,7 @@ export type EanProps = {
 }
 
 export class Ean extends Entity<EanProps>{
-    static unifyParams(eanProps : EanProps){
+    static unificarParametros(eanProps : EanProps){
 
         var array = [];
 
@@ -20,14 +20,14 @@ export class Ean extends Entity<EanProps>{
             ("00000"+eanProps.cod_produto).slice(-5)+
             ("000"+eanProps.lote).slice(-3)+
             ("000"+i).slice(-3);
-            var ean13:string = ean12+this.verifycationCod(ean12);
+            var ean13:string = ean12+this.codigoVericacao(ean12);
             array.push({nserie:ean13})
         }
         
         return array;
     }
 
-    static verifycationCod(ean:string){
+    static codigoVericacao(ean:string){
         const eanSplit: string[] = ean.split('');
         var cont = 1;
         var totalSoma = 0
@@ -47,7 +47,6 @@ export class Ean extends Entity<EanProps>{
         if(result % 10 == 0){
             result = 0
         }
-        // console.log(result);
         return result;
     }
     
