@@ -184,6 +184,7 @@ export default function Home() {
                             atualizar={setAtualizar}
                             etiqueta={data.produto.etiqueta}
                             router={router}
+                            setCarregando={setCarregando}
                             />
                             )
                         }
@@ -204,7 +205,7 @@ export default function Home() {
     )
   }
 
-  async function gerarCSV(id:number,token:any,router:any,atualizar:any){
+  async function gerarCSV(id:number,token:any,router:any,atualizar:any,setCarregando:any){
     try{
         await axios.put(`${process.env.URL}ordem/alterar-status/${id}`,
             {
@@ -215,9 +216,29 @@ export default function Home() {
             }
         });
         atualizar(id);
+        // setCarregando(false)
         router.push(`${process.env.URL}arquivo/gerar/${id}`,'_blank')
     }catch(e){
-        console.log(e,token)
+        setCarregando(false)
+        console.log(e)
+    }
+}
+  async function alterarStatus(id:number,token:any,router:any,atualizar:any,status:any,setCarregando:any){
+    setCarregando(true)
+    try{
+        await axios.put(`${process.env.URL}ordem/alterar-status/${id}`,
+            {
+                status:status
+            },{
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        atualizar(id);
+        // setCarregando(false)
+    }catch(e){
+        setCarregando(false)
+        console.log(e)
     }
 }
    
@@ -234,7 +255,8 @@ export default function Home() {
     token,
     atualizar,
     etiqueta,
-    router
+    router,
+    setCarregando
   }:any){
     const classNameCard = `
         hover:shadow-lg 
@@ -315,9 +337,18 @@ export default function Home() {
                         <DialogAlertBase 
                             btn={<Button variant="destructive" className="mr-1" size="sm"><RefreshCcw size={18} className="mr-2"/> Etiquetas com defeito</Button>} 
                             titulo="Atenção!" 
-                            descricao={msgAlertaDefeito}/>
+                            descricao={msgAlertaDefeito}
+                            form={
+                                <><DialogClose asChild>
+                                <Button type="button" variant="secondary">
+                                Não
+                                </Button>
+                            </DialogClose>
+                                    <Button onClick={() =>{alterarStatus(id,token,router,atualizar,"Defeito",setCarregando)}}>Sim</Button>
+                                </>
+                                }/>
                         
-                        <Button className="bg-green-500 hover:bg-green-700" size="sm"><Check size={18} className="mr-2"/> Concluir</Button>
+                        <Button  onClick={() =>{alterarStatus(id,token,router,atualizar,"Concluido",setCarregando)}} className="bg-green-500 hover:bg-green-700" size="sm"><Check size={18} className="mr-2"/> Concluir</Button>
                     </div>
                 )
                 :
@@ -357,13 +388,13 @@ export default function Home() {
                         {status == "Andamento"?
                         
                     <div className="flex justify-center">
-                        <Button variant="outline" className="bg-transparent border-spacing-2"><small>Pronto</small></Button>
+                        <Button onClick={() =>{alterarStatus(id,token,router,atualizar,"Enviado",setCarregando)}} variant="outline" className="bg-transparent border-spacing-2"><small>Enviar Lote</small></Button>
 
                     </div>
                 :
                     null}
                         <div className="flex justify-end">
-                            <Button onClick={() =>{gerarCSV(id,token,router,atualizar)}} className="bg-green-500 hover:bg-green-700"><small>Gerar .CSV</small></Button>
+                            <Button onClick={() =>{gerarCSV(id,token,router,atualizar,setCarregando)}} className="bg-green-500 hover:bg-green-700"><small>Gerar .CSV</small></Button>
 
                         </div>
                     </div>
