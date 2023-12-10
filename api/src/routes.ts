@@ -33,7 +33,7 @@ prefix = '/produto';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Produto.cadastrar);
 routes.put(`${prefix}/alterar/:id`,authAdministrador,Produto.alterar);
 routes.get(`${prefix}/listar-todos`,authAdministrador,Produto.listarTodos);
-routes.get(`${prefix}/listar-ativos`,authAdministrador,Produto.listarAtivos);
+routes.get(`${prefix}/listar-ativos`,authAdministrador,Produto.listarAtivos); 
 
 prefix = '/etiqueta';
 routes.post(`${prefix}/cadastrar`,authAdministrador,Etiqueta.cadastrar);
