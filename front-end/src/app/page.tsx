@@ -32,6 +32,8 @@ export default function Home() {
   const [erro, setErro] = useState('');
   const [btnCarregar, setBtnCarregar] = useState(false);
 
+  const txtbtn = 'Entrar1';
+
   async function handleSignIn(data:any) {
     setBtnCarregar(true);
     try {
@@ -68,10 +70,10 @@ export default function Home() {
             {btnCarregar ?
               <Button disabled>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Entrar
+                {txtbtn}
               </Button>
             :
-              <Button >Entrar</Button>
+              <Button >{txtbtn}</Button>
             }
           </CardFooter>
         </form>
