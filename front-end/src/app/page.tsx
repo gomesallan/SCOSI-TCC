@@ -32,7 +32,7 @@ export default function Home() {
   const [erro, setErro] = useState('');
   const [btnCarregar, setBtnCarregar] = useState(false);
 
-  const txtbtn = 'Entrar1';
+  const txtbtn = 'Entrar';
 
   async function handleSignIn(data:any) {
     setBtnCarregar(true);

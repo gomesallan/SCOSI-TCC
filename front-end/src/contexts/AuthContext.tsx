@@ -53,7 +53,7 @@ export function AuthProvider({children}:any){
     },[]);
 
     async function signIn({usu,senha} : SignInData){
-        const dados:any =  await axios.post(`${process.env.URL}usuario/login`,{login:usu,senha:senha});
+        const dados:any =  await axios.post(`${process.env.NEXT_PUBLIC_URL}usuario/login`,{login:usu,senha:senha});
         const {usuario,token}:any = dados.data;
         console.log(token);
         setCookie(undefined, 'scosi.token',token,{
